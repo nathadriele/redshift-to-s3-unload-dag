@@ -27,7 +27,7 @@ git clone https://github.com/nathadriele/redshift-to-s3-unload-dag.git
 2. Copy the DAG to Airflow's DAGs folder:
 
 ```py
-cp your_repository/redshift_to_s3_unload_dag.py $AIRFLOW_HOME/dags/
+cp redshift-to-s3-unload-dag/redshift_to_s3_unload_dag.py $AIRFLOW_HOME/dags/
 ```
 
 3. Configure the necessary environment variables and connections in Airflow for Redshift and AWS.
