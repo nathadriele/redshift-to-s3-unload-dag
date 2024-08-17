@@ -27,6 +27,7 @@ dag = DAG(
     's3_unload_dag',
     schedule_interval='30 12 * * *',
     start_date=days_ago(1),
+    catchup=False
 )
 
 # Retrieve AWS credentials
