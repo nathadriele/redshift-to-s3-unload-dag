@@ -54,3 +54,20 @@ This function constructs the SQL query for unloading data from Redshift to S3, i
 
 This section creates an Airflow DAG scheduled to run daily at 12:30 PM UTC. catchup=False prevents backfilling of missed runs. This task executes the UNLOAD query on Redshift, storing the data in S3 as specified.
 
+### Testing
+
+1. Manual Verification
+
+After setting up the DAG, manually trigger it via the Airflow interface to ensure it runs as expected.
+
+2. Log Monitoring
+
+Check Airflow logs during execution to verify:
+
+- Successful connection to Redshift.
+- Proper execution of the UNLOAD query.
+- Correct file creation in S3 with the expected name and format.
+
+
+
+
