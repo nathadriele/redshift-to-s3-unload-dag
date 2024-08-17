@@ -42,3 +42,15 @@ Once installed, the DAG will be automatically available in the Airflow interface
 
 The DAG will unload data from the specified Redshift table to the configured S3 bucket, with the filename including the previous day's date.
 
+#### 1. Retrieve AWS Credentials
+
+This function retrieves AWS credentials stored in Airflow variables, ensuring sensitive information is handled securely.
+
+#### 2. Generate UNLOAD SQL Query
+
+This function constructs the SQL query for unloading data from Redshift to S3, incorporating credentials and path parameters.
+
+#### 3. Create DAG and Task
+
+This section creates an Airflow DAG scheduled to run daily at 12:30 PM UTC. catchup=False prevents backfilling of missed runs. This task executes the UNLOAD query on Redshift, storing the data in S3 as specified.
+
