@@ -44,6 +44,7 @@ unload_task = PostgresOperator(
     task_id='execute_unload',
     sql=unload_query,
     postgres_conn_id='redshift_default_conn_id',
+    params={'retries': 0},
     dag=dag,
 )
 
