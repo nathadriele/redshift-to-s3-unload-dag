@@ -33,8 +33,10 @@ dag = DAG(
 # Retrieve AWS credentials
 aws_credentials = get_aws_credentials()
 
+# Calculate yesterday's date
 yesterday = pendulum.yesterday().strftime('%Y-%m-%d')
 
+# Define the S3 file path with yesterday's date
 s3_file_path = f's3://bucket-name/path/to/exported_data_{yesterday}.csv'
 
 unload_query = generate_unload_query("schema", "table_name", s3_file_path, aws_credentials)
