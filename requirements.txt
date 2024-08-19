@@ -1,3 +1,9 @@
 # Airflow and dependencies
 apache-airflow==2.6.3
 apache-airflow-providers-postgres==5.2.2
+
+# Pendulum for date manipulation
+pendulum==2.1.2
+
+# Additional dependencies
+psycopg2-binary==2.9.7
