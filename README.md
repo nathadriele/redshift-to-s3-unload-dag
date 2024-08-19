@@ -68,9 +68,9 @@ Check Airflow logs during execution to verify:
 - Proper execution of the UNLOAD query.
 - Correct file creation in S3 with the expected name and format.
 
-### Result
+### View Results
 
-The data from the specified Redshift table will be unloaded to the S3 bucket in Parquet format, with filenames including the previous day's date. Verify the output by accessing the S3 bucket.
+Once the DAG has completed, verify that the data has been successfully unloaded from the specified Redshift table and stored in the designated S3 bucket. The exported file will be named according to the format exported_data_YYYY-MM-DD.parquet, reflecting the previous day's date.
 
 ### Contribution to Data Engineering
 
