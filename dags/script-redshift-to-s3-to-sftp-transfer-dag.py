@@ -54,6 +54,7 @@ def upload_to_sftp():
         sftp_operator = S3ToSFTPOperator(
             task_id="upload_file_to_sftp",
             sftp_conn_id='sftp_connection',
+            sftp_path=f'{path}_data.csv',
             s3_bucket=bucket,
             s3_key=file
         )
