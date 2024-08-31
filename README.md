@@ -1,4 +1,4 @@
-## Redshift to S3 Unload DAG for Apache Airflow
+## Airflow DAG Scripts for Redshift to S3 Unload and S3 to SFTP Transfer
 
 ### Overview
 
