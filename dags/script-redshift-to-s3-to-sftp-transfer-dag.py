@@ -71,11 +71,13 @@ with DAG(
     unload_task = PythonOperator(
         task_id='unload_data_task',
         python_callable=unload_data,
+        do_xcom_push=True,
     )
 
     upload_to_sftp_task = PythonOperator(
         task_id='upload_file_task',
         python_callable=upload_to_sftp,
+        do_xcom_push=True,
     )
 
     unload_task >> upload_to_sftp_task
