@@ -65,6 +65,7 @@ with DAG(
     schedule_interval='@daily',
     start_date=days_ago(1),
     tags=["data_pipeline"],
+    catchup=False    
 ) as dag:
 
     unload_task = PythonOperator(
