@@ -9,8 +9,8 @@ import pendulum
 
 redshift_conn_id = "redshift_conn_id"
 yesterday = pendulum.yesterday().strftime("%Y-%m-%d")
-bucket = Variable.get("BUCKET")
-directory = "directory"
+bucket = Variable.get("S3_YOUR_BUCKET")
+directory = "data_directory"
 
 def unload_data():
     s3_path = f's3://{bucket}/{directory}/{yesterday}/*'
