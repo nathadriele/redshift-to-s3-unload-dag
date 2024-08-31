@@ -14,7 +14,7 @@ directory = "data_directory"
 
 def unload_data():
     s3_path = f's3://{bucket}/{directory}/{yesterday}/*'
-    iam_role = Variable.get("IAM")
+    iam_role = Variable.get("IAM_ROLE_DMS_ACCESS_FOR_ENDPOINT")
     
     query = f"""
     UNLOAD ('
