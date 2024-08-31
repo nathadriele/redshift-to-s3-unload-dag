@@ -20,7 +20,7 @@ def unload_data():
     UNLOAD ('
     SELECT *
     FROM schema_name.table_name
-    WHERE DATE(date) = CURRENT_DATE - INTERVAL '1 day'
+    WHERE DATE(created_at) = CURRENT_DATE - INTERVAL '1 day'
     ')
     TO '{s3_path}'
     IAM_ROLE '{iam_role}'
