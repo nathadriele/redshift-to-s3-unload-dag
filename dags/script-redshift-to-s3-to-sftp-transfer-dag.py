@@ -38,7 +38,7 @@ def unload_data():
     MAXFILESIZE AS 5 GB
     EXTENSION CSV;
     """
-    
+
     postgres_operator = PostgresOperator(
         task_id='execute_query',
         sql=query,
@@ -63,6 +63,7 @@ def upload_to_sftp():
     files = s3_list_operator.execute(dict())
     
     for file in files:
+        # Create and execute an S3ToSFTPOperator to upload each file to SFTP.
         sftp_operator = S3ToSFTPOperator(
             task_id="upload_file_to_sftp",
             sftp_conn_id='sftp_connection',
@@ -72,6 +73,7 @@ def upload_to_sftp():
         )
         sftp_operator.execute(dict())
 
+# Define the DAG for orchestrating the data pipeline.
 with DAG(
     'data_pipeline_dag',
     schedule_interval='@daily',
@@ -80,12 +82,14 @@ with DAG(
     catchup=False    
 ) as dag:
 
+# Task to unload data from Redshift to S3.
     unload_task = PythonOperator(
         task_id='unload_data_task',
         python_callable=unload_data,
         do_xcom_push=True,
     )
 
+# Task to upload files from S3 to SFTP.
     upload_to_sftp_task = PythonOperator(
         task_id='upload_file_task',
         python_callable=upload_to_sftp,
