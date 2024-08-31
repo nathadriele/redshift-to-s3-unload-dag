@@ -13,6 +13,12 @@ bucket = Variable.get("S3_YOUR_BUCKET")
 directory = "data_directory"
 
 def unload_data():
+    """
+    Unloads data from Redshift to an S3 bucket.
+    
+    Constructs an UNLOAD SQL query to extract data from Redshift and write it
+    to an S3 bucket in CSV format.
+    """
     s3_path = f's3://{bucket}/{directory}/{yesterday}/*'
     iam_role = Variable.get("IAM_ROLE_DMS_ACCESS_FOR_ENDPOINT")
     
@@ -42,6 +48,12 @@ def unload_data():
     postgres_operator.execute(dict())
 
 def upload_to_sftp():
+    """
+    Uploads files from S3 to an SFTP server.
+    
+    Lists files in the specified S3 bucket and directory, then uploads each file
+    to an SFTP server.
+    """
     path = f'{directory}/{yesterday}/*'
     s3_list_operator = S3ListOperator(
         task_id="list_files",
