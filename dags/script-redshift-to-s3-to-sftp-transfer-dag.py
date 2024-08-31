@@ -37,6 +37,7 @@ def unload_data():
         task_id='execute_query',
         sql=query,
         postgres_conn_id=redshift_conn_id,
+        retries=0,
     )
     postgres_operator.execute(dict())
 
