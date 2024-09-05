@@ -3,7 +3,7 @@ import logging
 from airflow import DAG
 from airflow.models.baseoperator import chain
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
-from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.empty import EmptyOperator  # Atualizado para EmptyOperator
 from airflow.models import Variable
 
 # Set up logging
@@ -21,26 +21,27 @@ def get_variable(key, default_value=None):
         logger.warning(f"Variable {key} not found, using default value: {default_value}")
         return default_value
 
+# Configuration variables
 S3_BUCKET = get_variable("S3_BUCKET", "default-bucket")
 S3_KEY = get_variable("S3_KEY", "default-key")
 REDSHIFT_TABLE = get_variable("REDSHIFT_TABLE", "default_table")
 
+# Define the DAG
 with DAG(
     dag_id="s3_to_redshift",
     description="DAG to transfer data from S3 to Redshift",
     start_date=datetime(2022, 3, 1),
-    schedule_interval=None,
+    schedule_interval=None,  # No automatic scheduling, can be triggered manually
     catchup=False,
     tags=["data-transfer", "redshift", "s3"],
 ) as dag:
 
-    # Dummy start task
-    begin = DummyOperator(
+    begin = EmptyOperator(
         task_id="begin",
         dag=dag
     )
 
-    # Task to transfer data from S3 to Redshift with logging
+    # Task to transfer data from S3 to Redshift
     task_transfer_s3_to_redshift = S3ToRedshiftOperator(
         task_id='transfer_s3_to_redshift',
         s3_bucket=S3_BUCKET,
@@ -52,7 +53,7 @@ with DAG(
 
     logger.info(f"Starting transfer from {S3_BUCKET}/{S3_KEY} to Redshift table {REDSHIFT_TABLE}")
 
-    end = DummyOperator(
+    end = EmptyOperator(
         task_id="end",
         dag=dag
     )
