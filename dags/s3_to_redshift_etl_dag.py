@@ -6,10 +6,15 @@ from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOp
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.models import Variable
 
+# Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def get_variable(key, default_value=None):
+    """
+    Utility function to fetch Airflow variables with a default fallback.
+    This prevents the DAG from failing if the variable is not set.
+    """
     try:
         return Variable.get(key)
     except KeyError:
@@ -22,12 +27,14 @@ REDSHIFT_TABLE = get_variable("REDSHIFT_TABLE", "default_table")
 
 with DAG(
     dag_id="s3_to_redshift",
+    description="DAG to transfer data from S3 to Redshift",
     start_date=datetime(2022, 3, 1),
     schedule_interval=None,
     catchup=False,
     tags=["data-transfer", "redshift", "s3"],
 ) as dag:
 
+    # Dummy start task
     begin = DummyOperator(
         task_id="begin",
         dag=dag
