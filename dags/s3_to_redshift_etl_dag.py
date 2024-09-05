@@ -24,10 +24,10 @@ with DAG(
     dag_id="s3_to_redshift",
     start_date=datetime(2022, 3, 1),
     schedule_interval=None,
+    catchup=False,
     tags=["data-transfer", "redshift", "s3"],
 ) as dag:
 
-    # Dummy start task
     begin = DummyOperator(
         task_id="begin",
         dag=dag
