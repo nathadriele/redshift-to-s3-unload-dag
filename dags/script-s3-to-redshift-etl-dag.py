@@ -59,6 +59,7 @@ with DAG(
         schema=REDSHIFT_SCHEMA,
         table=REDSHIFT_TABLE,
         redshift_conn_id=get_variable("REDSHIFT_CONN_ID", "redshift_default"),
+        aws_conn_id=get_variable("AWS_CONN_ID", "aws_default"),
     )
 
     logger.info(f"Starting transfer from {S3_BUCKET}/{S3_KEY} to Redshift table {REDSHIFT_TABLE}")
