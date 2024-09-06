@@ -25,6 +25,9 @@ def check_connections(**kwargs):
     redshift_conn_id = get_variable("REDSHIFT_CONN_ID", "redshift_default")
     aws_conn_id = get_variable("AWS_CONN_ID", "aws_default")
     
+    if not redshift_conn_id or not aws_conn_id:
+        raise AirflowException("Redshift or AWS connection ID not found")
+
 S3_BUCKET = get_variable("S3_BUCKET", "default-bucket")
 S3_KEY = get_variable("S3_KEY", "default-key")
 REDSHIFT_TABLE = get_variable("REDSHIFT_TABLE", "default_table")
@@ -60,6 +63,7 @@ with DAG(
         table=REDSHIFT_TABLE,
         redshift_conn_id=get_variable("REDSHIFT_CONN_ID", "redshift_default"),
         aws_conn_id=get_variable("AWS_CONN_ID", "aws_default"),
+        copy_options=COPY_OPTIONS,
     )
 
     logger.info(f"Starting transfer from {S3_BUCKET}/{S3_KEY} to Redshift table {REDSHIFT_TABLE}")
