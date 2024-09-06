@@ -22,6 +22,9 @@ def get_variable(key, default_value=None):
         return default_value
 
 def check_connections(**kwargs):
+    """
+    Function to check if the necessary connections are set up.
+    """
     redshift_conn_id = get_variable("REDSHIFT_CONN_ID", "redshift_default")
     aws_conn_id = get_variable("AWS_CONN_ID", "aws_default")
     
