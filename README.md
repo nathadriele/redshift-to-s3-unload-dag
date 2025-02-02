@@ -1,5 +1,7 @@
 ## Airflow DAG Scripts for Redshift to S3
 
+![image](https://github.com/user-attachments/assets/92bb794b-e2b3-49b8-bccd-b30e7ca8388e)
+
 ### Overview
 
 This project is an Apache Airflow DAG designed to automate the process of extracting data from an Amazon Redshift database and unloading it to Amazon S3 in Parquet format. The DAG is scheduled to run daily, exporting data from the previous day based on a specified SQL query.
